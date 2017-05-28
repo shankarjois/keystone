@@ -131,7 +131,7 @@ const classes = {
 		paddingTop: theme.modal.padding.dialog.vertical,
 		position: 'relative',
 		maxHeight: '90%',
- 		overflowY: 'auto
+ 		overflowY: 'auto'
 	},
 };
 
