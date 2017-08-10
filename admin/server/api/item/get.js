@@ -110,6 +110,8 @@ module.exports = function (req, res) {
 					detail: err,
 				});
 			}
+			res.header("Expires", "-1");
+			res.header("Cache-Control", "no-cache, no-store, private");
 			res.json(_.assign(req.list.getData(item, fields), {
 				drilldown: drilldown,
 			}));
