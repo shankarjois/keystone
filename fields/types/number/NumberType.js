@@ -23,17 +23,33 @@ number.properName = 'Number';
 util.inherits(number, FieldType);
 
 number.prototype.validateInput = function (data, callback) {
-	var value = this.getValueFromData(data);
-	var result = value === undefined || typeof value === 'number' || value === null;
-	if (typeof value === 'string') {
-		if (value === '') {
-			result = true;
-		} else {
-			value = utils.number(value);
-			result = !isNaN(value);
-		}
-	}
-	utils.defer(callback, result);
+    var max = this.options.max;
+    var min = this.options.min;
+    var lmin = (min)? utils.number(min) : Number.MIN_VALUE;
+    var lmax = (max)? utils.number(max) : Number.MAX_VALUE;
+    var value = this.getValueFromData(data);
+    var result1 = true;
+    var result2 = true;
+    var result3 = true;
+    var result1 = value === undefined || typeof value === 'number' || value === null;
+    if (typeof value === 'string') {
+        if (value === '') {
+            result1 = true;
+        } else {
+            value = utils.number(value);
+            result1 = !isNaN(value);
+        }
+    } else {
+        value = utils.number(value);
+        if (lmax && typeof value === 'string') {
+            result2 = value <= lmax;
+        }
+        if (lmin && typeof value === 'string') {
+            result3 = value >= lmin;
+        }
+    }
+    var result = (result1 && result2 && result3);
+    utils.defer(callback, result);
 };
 
 number.prototype.validateRequiredInput = function (item, data, callback) {
