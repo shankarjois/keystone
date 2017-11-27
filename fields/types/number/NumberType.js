@@ -31,7 +31,7 @@ number.prototype.validateInput = function (data, callback) {
     var result1 = true;
     var result2 = true;
     var result3 = true;
-    var result1 = value === undefined || typeof value === 'number' || value === null;
+    var result1 = (value === undefined || typeof value === 'number' || value === null);
     if (typeof value === 'string') {
         if (value === '') {
             result1 = true;
@@ -41,11 +41,11 @@ number.prototype.validateInput = function (data, callback) {
         }
     } else {
         value = utils.number(value);
-        if (lmax && typeof value === 'string') {
-            result2 = value <= lmax;
+        if (lmax && typeof value === 'number') {
+            result2 = (value <= lmax);
         }
-        if (lmin && typeof value === 'string') {
-            result3 = value >= lmin;
+        if (lmin && typeof value === 'number') {
+            result3 = (value >= lmin);
         }
     }
     var result = (result1 && result2 && result3);
