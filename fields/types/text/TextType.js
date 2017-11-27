@@ -29,10 +29,10 @@ text.prototype.validateInput = function (data, callback) {
 	lmax = Math.max(lmax,0,lmin); // max cannot be nagative, max shd be atleast equal to min
 	result1 = value === undefined || value === null || typeof value === 'string';
 	if (lmax && typeof value === 'string') {
-		result2 = value.length <= max;
+		result2 = value.length <= lmax;
 	}
 	if (lmin && typeof value === 'string') {
-		result3 = value.length >= min;
+		result3 = value.length >= lmin;
 	}
 	var result = (result1 && result2 && result3);
 	utils.defer(callback, result);
