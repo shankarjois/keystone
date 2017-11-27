@@ -21,14 +21,17 @@ text.prototype.validateInput = function (data, callback) {
 	var max = this.options.max;
 	var min = this.options.min;
 	var value = this.getValueFromData(data);
-	var result1;
-	var result2;
-	var result3;
+	var result1 = true;
+	var result2 = true;
+	var result3 = true;
+	var lmin = (!min)? 0: Math.max(min,0); // min cannot benegative
+	var lmax = (!max)? 2000: Math.min(max,2000); // cap max at 2000
+	lmax = Math.max(lmax,0,lmin); // max cannot be nagative, max shd be atleast equal to min
 	result1 = value === undefined || value === null || typeof value === 'string';
-	if (max && typeof value === 'string') {
+	if (lmax && typeof value === 'string') {
 		result2 = value.length <= max;
 	}
-	if (min && typeof value === 'string') {
+	if (lmin && typeof value === 'string') {
 		result3 = value.length >= min;
 	}
 	var result = (result1 && result2 && result3);
